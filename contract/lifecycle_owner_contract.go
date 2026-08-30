@@ -27,6 +27,11 @@ type ArchiveWriter interface {
 	ArchivePayload(context.Context, string, lifecyclemodel.CleanupJob, lifecyclemodel.PolicyVersion, string, string, []byte) (bool, error)
 }
 
+type ArchiveStore interface {
+	ArchiveWriter
+	Archived(context.Context, string, string, string, string) (bool, error)
+}
+
 type SubjectIdentityResolver interface {
 	ResolveSubject(context.Context, string, string, string) (string, error)
 }

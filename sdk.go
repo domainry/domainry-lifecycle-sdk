@@ -66,8 +66,7 @@ type Binding interface {
 	Repository() repository.LifecycleRepository
 	UploadArtifacts(UploadArtifactOptions) (contract.UploadArtifactStore, error)
 	SubjectArtifacts(string) (contract.SubjectArtifactStore, error)
-	ArchiveWriter() contract.ArchiveWriter
+	ArchiveStore() contract.ArchiveStore
 	WithinTransaction(context.Context, func(context.Context) error) error
 	Close(context.Context) error
 }
-
