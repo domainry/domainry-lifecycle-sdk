@@ -48,6 +48,7 @@ type ExternalErasureHandler interface {
 }
 
 type SubjectArtifactStore interface {
+	SubjectFileStore
 	PutSubjectExport(context.Context, string, string, json.RawMessage, time.Time) (string, error)
 	ReadSubjectExport(context.Context, string, string, time.Time) (json.RawMessage, error)
 	DeleteExpiredSubjectExports(context.Context, time.Time) (int, error)
@@ -148,4 +149,11 @@ type ExpiredUploadReferenceCleaner interface {
 type FileScanStore interface {
 	FindFileScan(context.Context, string, string) (FileScanEvidence, error)
 	RecordFileScan(context.Context, FileScanEvidence) error
+}
+
+// UploadFileArtifactStore is the complete host-facing artifact capability used
+// by upload access and scan-receipt verification.
+type UploadFileArtifactStore interface {
+	UploadArtifactStore
+	FileScanStore
 }
