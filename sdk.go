@@ -64,7 +64,7 @@ type Factory interface {
 type Binding interface {
 	Descriptor() Descriptor
 	Repository() repository.LifecycleRepository
-	UploadArtifacts(UploadArtifactOptions) (contract.UploadArtifactStore, error)
+	UploadArtifacts(UploadArtifactOptions) (contract.UploadFileArtifactStore, error)
 	SubjectArtifacts(string) (contract.SubjectArtifactStore, error)
 	ArchiveStore() contract.ArchiveStore
 	WithinTransaction(context.Context, func(context.Context) error) error
