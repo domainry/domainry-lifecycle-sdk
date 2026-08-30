@@ -6,9 +6,9 @@ package modulehost
 import (
 	"context"
 
-	ormbuilder "github.com/domainry/domainry-orm/builder"
 	ormdialect "github.com/domainry/domainry-orm/dialect"
 	ormmigration "github.com/domainry/domainry-orm/migration"
+	ormbuilder "github.com/domainry/domainry-orm/query"
 	"github.com/domainry/domainry-orm/sqlhost"
 )
 

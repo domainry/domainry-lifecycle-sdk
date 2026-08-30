@@ -4,8 +4,8 @@ github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/domainry/domainry-foundation v0.1.0-dev.5 h1:50cmggDKFDAUSPJ3vDIy12zoUhcCJ37SSFEghIElI4k=
 github.com/domainry/domainry-foundation v0.1.0-dev.5/go.mod h1:WvgF05kjXLik+UZR46PpG5bbbt/gDp2WeUo4o7H7NjA=
-github.com/domainry/domainry-orm v0.1.24 h1:h6L2vlZyvd4IjXOoV66zO8PapntbWh2KyWYZ/gezOAA=
-github.com/domainry/domainry-orm v0.1.24/go.mod h1:NKMojLuridkYCS4i5L7BO7LMTMsf/uOkWQ9OQ+9Vdn4=
+github.com/domainry/domainry-orm v0.1.27 h1:bXpjvroFrwaj8tgI2zKmXeX4RCaSqCzfRs1AAkpCeHE=
+github.com/domainry/domainry-orm v0.1.27/go.mod h1:NKMojLuridkYCS4i5L7BO7LMTMsf/uOkWQ9OQ+9Vdn4=
 github.com/google/go-cmp v0.7.0 h1:wk8382ETsv4JYUZwIsn6YpYiWiBsYLSJiTsyBybVuN8=
 github.com/google/go-cmp v0.7.0/go.mod h1:pXiqmnSA92OHEEa9HXL2W4E7lf9JzCmGVUdgjX3N/iU=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
