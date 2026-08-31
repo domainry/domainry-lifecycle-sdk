@@ -36,14 +36,19 @@ type SubjectIdentityResolver interface {
 	ResolveSubject(context.Context, string, string, string) (string, error)
 }
 
-type SubjectDataHandler interface {
+// SubjectExecutionHandler is the crash-recovery contract for owner side
+// effects. Implementations must treat (requestID, operation) as an idempotency
+// identity and return the same successful result when Lifecycle retries after
+// losing its process between the owner effect and the local step commit.
+type SubjectExecutionHandler interface {
 	Owner(context.Context) string
 	PreviewSubject(context.Context, string, string) (json.RawMessage, error)
-	ExportSubject(context.Context, string, string) (json.RawMessage, error)
-	EraseSubject(context.Context, string, string, []lifecyclemodel.LegalHold) (json.RawMessage, error)
+	ExportSubjectForRequest(context.Context, string, string, string) (json.RawMessage, error)
+	EraseSubjectForRequest(context.Context, string, string, string, []lifecyclemodel.LegalHold) (json.RawMessage, error)
 }
 
 type ExternalErasureHandler interface {
+	// RequestExternalErasure must be idempotent by SubjectRequest.ID.
 	RequestExternalErasure(context.Context, lifecyclemodel.SubjectRequest) ([]lifecyclemodel.ExternalErasure, error)
 }
 

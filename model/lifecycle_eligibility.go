@@ -11,24 +11,24 @@ const (
 )
 
 type ResourceTarget struct {
-	WorkspaceID  string
-	Owner        string
-	ResourceType string
-	ResourceID   string
+	WorkspaceID  string `json:"workspace_id"`
+	Owner        string `json:"owner,omitempty"`
+	ResourceType string `json:"resource_type,omitempty"`
+	ResourceID   string `json:"resource_id,omitempty"`
 }
 
 type LegalHold struct {
-	ID            string
-	WorkspaceID   string
-	Owner         string
-	ResourceType  string
-	ResourceID    string
-	Reason        string
-	Authority     string
-	StartsAt      time.Time
-	EndsAt        *time.Time
-	ReviewAt      time.Time
-	AuditEvidence string
+	ID            string     `json:"id"`
+	WorkspaceID   string     `json:"workspace_id"`
+	Owner         string     `json:"owner,omitempty"`
+	ResourceType  string     `json:"resource_type,omitempty"`
+	ResourceID    string     `json:"resource_id,omitempty"`
+	Reason        string     `json:"reason"`
+	Authority     string     `json:"authority"`
+	StartsAt      time.Time  `json:"starts_at"`
+	EndsAt        *time.Time `json:"ends_at,omitempty"`
+	ReviewAt      time.Time  `json:"review_at"`
+	AuditEvidence string     `json:"audit_evidence"`
 }
 
 type EligibilityInput struct {

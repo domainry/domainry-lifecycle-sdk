@@ -39,24 +39,24 @@ const (
 )
 
 type RetentionPolicy struct {
-	Key                     string
-	Version                 string
-	Owner                   string
-	Class                   RetentionClass
-	Sensitivity             []Sensitivity
-	DefaultRetention        time.Duration
-	MinimumRetention        time.Duration
-	StatusRetention         map[string]time.Duration
-	ReplayWindow            time.Duration
-	WorkspaceMayExtend      bool
-	WorkspaceMayReduce      bool
-	LegalHoldEligible       bool
-	BackupBehavior          BackupBehavior
-	EraseBehavior           EraseBehavior
-	RequiredReferenceChecks []string
+	Key                     string                   `json:"key"`
+	Version                 string                   `json:"version"`
+	Owner                   string                   `json:"owner"`
+	Class                   RetentionClass           `json:"class"`
+	Sensitivity             []Sensitivity            `json:"sensitivity,omitempty"`
+	DefaultRetention        time.Duration            `json:"default_retention"`
+	MinimumRetention        time.Duration            `json:"minimum_retention"`
+	StatusRetention         map[string]time.Duration `json:"status_retention,omitempty"`
+	ReplayWindow            time.Duration            `json:"replay_window,omitempty"`
+	WorkspaceMayExtend      bool                     `json:"workspace_may_extend"`
+	WorkspaceMayReduce      bool                     `json:"workspace_may_reduce"`
+	LegalHoldEligible       bool                     `json:"legal_hold_eligible"`
+	BackupBehavior          BackupBehavior           `json:"backup_behavior"`
+	EraseBehavior           EraseBehavior            `json:"erase_behavior"`
+	RequiredReferenceChecks []string                 `json:"required_reference_checks,omitempty"`
 }
 
 type WorkspaceRetentionOverride struct {
-	WorkspaceID string
-	Retention   time.Duration
+	WorkspaceID string        `json:"workspace_id"`
+	Retention   time.Duration `json:"retention"`
 }
