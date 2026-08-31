@@ -1,6 +1,3 @@
-// Package modulehost defines the infrastructure capabilities borrowed by an
-// embedded Lifecycle module. The module never opens or closes the host DB and
-// never owns a second migration ledger.
 package modulehost
 
 import (
@@ -8,7 +5,7 @@ import (
 
 	ormdialect "github.com/domainry/domainry-orm/dialect"
 	ormmigration "github.com/domainry/domainry-orm/migration"
-	ormbuilder "github.com/domainry/domainry-orm/query"
+	"github.com/domainry/domainry-orm/query"
 	"github.com/domainry/domainry-orm/sqlhost"
 )
 
@@ -18,7 +15,7 @@ type DBTX = sqlhost.DBTX
 type Database = sqlhost.Database
 
 type Dialect interface {
-	ormbuilder.Renderer
+	query.Renderer
 	Name() ormdialect.Name
 }
 
@@ -28,14 +25,10 @@ type SchemaTable = ormmigration.Table
 type SchemaColumn = ormmigration.Column
 type SchemaIndex = ormmigration.Index
 
-// MigrationRegistrar applies Lifecycle-owned migrations using the host's
-// migration lock and sole _schema_migrations ledger.
 type MigrationRegistrar interface {
 	ApplyOwnedMigrations(context.Context, string, []SchemaMigration) error
 }
 
-// Transactor preserves the host transaction boundary. Lifecycle must not
-// begin an independent transaction when invoked inside a host operation.
 type Transactor interface {
 	WithinTransaction(context.Context, func(context.Context, DBTX) error) error
 }
