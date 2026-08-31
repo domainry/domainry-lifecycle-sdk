@@ -11,8 +11,8 @@ import (
 	lifecycleaccess "github.com/domainry/domainry-lifecycle-sdk/access"
 	lifecyclecontract "github.com/domainry/domainry-lifecycle-sdk/contract"
 	lifecyclemodel "github.com/domainry/domainry-lifecycle-sdk/model"
+	lifecyclepersistence "github.com/domainry/domainry-lifecycle-sdk/persistence"
 	lifecyclepolicy "github.com/domainry/domainry-lifecycle-sdk/policy"
-	lifecyclerepository "github.com/domainry/domainry-lifecycle-sdk/repository"
 )
 
 func (s *LifecycleApplicationService) policyExecutor(ctx context.Context, workspaceID, policyKey string) (lifecyclemodel.PolicyVersion, lifecyclecontract.OwnerLifecycleExecutor, error) {
@@ -43,7 +43,7 @@ func (s *LifecycleApplicationService) transitionSubject(ctx context.Context, cur
 		return lifecyclemodel.SubjectRequest{}, err
 	}
 	var err error
-	if transitions, ok := s.subjectRequests.(lifecyclerepository.SubjectRequestTransitionRepository); ok {
+	if transitions, ok := s.subjectRequests.(lifecyclepersistence.SubjectRequestTransitionRepository); ok {
 		err = transitions.TransitionSubjectRequest(ctx, current, next)
 	} else {
 		err = s.subjectRequests.SaveSubjectRequest(ctx, next)

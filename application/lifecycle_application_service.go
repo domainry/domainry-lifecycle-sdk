@@ -11,8 +11,8 @@ import (
 	lifecycleaccess "github.com/domainry/domainry-lifecycle-sdk/access"
 	lifecyclecontract "github.com/domainry/domainry-lifecycle-sdk/contract"
 	lifecyclemodel "github.com/domainry/domainry-lifecycle-sdk/model"
+	lifecyclepersistence "github.com/domainry/domainry-lifecycle-sdk/persistence"
 	lifecyclepolicy "github.com/domainry/domainry-lifecycle-sdk/policy"
-	lifecyclerepository "github.com/domainry/domainry-lifecycle-sdk/repository"
 )
 
 const (
@@ -24,12 +24,12 @@ const (
 type LifecycleApplicationDependencies struct {
 	// Repository remains the compatibility aggregate for the Runtime host.
 	// Narrow repositories override it when Lifecycle is embedded compositionally.
-	Repository      lifecyclerepository.LifecycleRepository
-	Policies        lifecyclerepository.PolicyRepository
-	LegalHolds      lifecyclerepository.LegalHoldRepository
-	CleanupJobs     lifecyclerepository.CleanupJobRepository
-	SubjectRequests lifecyclerepository.SubjectRequestRepository
-	Evidence        lifecyclerepository.LifecycleEvidenceRepository
+	Repository      lifecyclepersistence.LifecycleRepository
+	Policies        lifecyclepersistence.PolicyRepository
+	LegalHolds      lifecyclepersistence.LegalHoldRepository
+	CleanupJobs     lifecyclepersistence.CleanupJobRepository
+	SubjectRequests lifecyclepersistence.SubjectRequestRepository
+	Evidence        lifecyclepersistence.LifecycleEvidenceRepository
 	Executors       []lifecyclecontract.OwnerLifecycleExecutor
 	SubjectResolver lifecyclecontract.SubjectIdentityResolver
 	SubjectHandlers []lifecyclecontract.SubjectDataHandler
@@ -39,11 +39,11 @@ type LifecycleApplicationDependencies struct {
 }
 
 type LifecycleApplicationService struct {
-	policies        lifecyclerepository.PolicyRepository
-	legalHolds      lifecyclerepository.LegalHoldRepository
-	cleanupJobs     lifecyclerepository.CleanupJobRepository
-	subjectRequests lifecyclerepository.SubjectRequestRepository
-	evidence        lifecyclerepository.LifecycleEvidenceRepository
+	policies        lifecyclepersistence.PolicyRepository
+	legalHolds      lifecyclepersistence.LegalHoldRepository
+	cleanupJobs     lifecyclepersistence.CleanupJobRepository
+	subjectRequests lifecyclepersistence.SubjectRequestRepository
+	evidence        lifecyclepersistence.LifecycleEvidenceRepository
 	executors       map[string]lifecyclecontract.OwnerLifecycleExecutor
 	resolver        lifecyclecontract.SubjectIdentityResolver
 	subjectHandlers []lifecyclecontract.SubjectDataHandler

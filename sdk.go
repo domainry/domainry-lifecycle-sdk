@@ -8,7 +8,7 @@ import (
 
 	"github.com/domainry/domainry-lifecycle-sdk/contract"
 	"github.com/domainry/domainry-lifecycle-sdk/modulehost"
-	"github.com/domainry/domainry-lifecycle-sdk/repository"
+	"github.com/domainry/domainry-lifecycle-sdk/persistence"
 )
 
 type DeploymentMode string
@@ -63,7 +63,7 @@ type Factory interface {
 
 type Binding interface {
 	Descriptor() Descriptor
-	Repository() repository.LifecycleRepository
+	Repository() persistence.LifecycleRepository
 	UploadArtifacts(UploadArtifactOptions) (contract.UploadFileArtifactStore, error)
 	SubjectArtifacts(string) (contract.SubjectArtifactStore, error)
 	ArchiveStore() contract.ArchiveStore
