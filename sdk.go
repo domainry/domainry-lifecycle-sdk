@@ -8,6 +8,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/domainry/domainry-foundation/modulecapability"
 	"github.com/domainry/domainry-lifecycle-sdk/access"
 	"github.com/domainry/domainry-lifecycle-sdk/contract"
 	model "github.com/domainry/domainry-lifecycle-sdk/model"
@@ -145,6 +146,7 @@ type LocalWorkers interface {
 }
 
 type Binding interface {
+	modulecapability.Binding
 	Descriptor() Descriptor
 	BindOwners(context.Context, OwnerExtensions) error
 	Governance() Governance
