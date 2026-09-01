@@ -18,11 +18,8 @@ import (
 type DeploymentMode string
 
 const (
-	DeploymentModeModule    DeploymentMode = "module"
-	ProtocolVersionV1                      = "domainry-lifecycle-protocol-v1"
-	PermissionPolicyManage                 = "lifecycle.policy.manage"
-	PermissionCleanupRun                   = "lifecycle.cleanup.run"
-	PermissionSubjectManage                = "lifecycle.subject.manage"
+	DeploymentModeModule DeploymentMode = "module"
+	ProtocolVersionV1                   = "domainry-lifecycle-protocol-v1"
 )
 
 type Error struct {
