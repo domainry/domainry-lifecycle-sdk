@@ -102,6 +102,7 @@ type OwnerExtensions struct {
 type Governance interface {
 	PublishPolicy(context.Context, model.PolicyVersion, access.Principal) (model.PolicyVersion, error)
 	ListPolicies(context.Context, access.Principal) ([]model.PolicyVersion, error)
+	ListLegalHolds(context.Context, int, access.Principal) ([]model.LegalHold, error)
 	CreateLegalHold(context.Context, model.LegalHold, access.Principal) (model.LegalHold, error)
 	EndLegalHold(context.Context, string, string, string, string, time.Time, access.Principal) (model.LegalHold, error)
 	PreviewCleanup(context.Context, string, string, access.Principal, time.Time) (contract.CleanupPreview, error)
@@ -110,6 +111,8 @@ type Governance interface {
 	Metrics(context.Context, access.Principal, time.Time) (model.Metrics, error)
 	ListArchiveEntries(context.Context, string, int, access.Principal) ([]model.ArchiveEntry, error)
 	CreateSubjectRequest(context.Context, model.SubjectRequest, access.Principal) (model.SubjectRequest, error)
+	ListSubjectRequests(context.Context, int, access.Principal) ([]model.SubjectRequest, error)
+	GetSubjectRequest(context.Context, string, string, access.Principal) (model.SubjectRequest, error)
 	VerifySubjectRequest(context.Context, string, string, string, access.Principal) (model.SubjectRequest, error)
 	PreviewSubjectRequest(context.Context, string, string, access.Principal) (model.SubjectRequest, error)
 	ApproveSubjectRequest(context.Context, string, string, access.Principal) (model.SubjectRequest, error)

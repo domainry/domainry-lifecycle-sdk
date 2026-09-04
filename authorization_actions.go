@@ -5,6 +5,7 @@ package lifecyclesdk
 const (
 	ActionLifecyclePoliciesList              = "lifecycle.policies.list"
 	ActionLifecyclePoliciesPublish           = "lifecycle.policies.publish"
+	ActionLifecycleLegalHoldsList            = "lifecycle.legal_holds.list"
 	ActionLifecycleLegalHoldsCreate          = "lifecycle.legal_holds.create"
 	ActionLifecycleLegalHoldsEnd             = "lifecycle.legal_holds.end"
 	ActionLifecycleCleanupPreview            = "lifecycle.cleanup.preview"
@@ -13,6 +14,8 @@ const (
 	ActionLifecycleMetricsRead               = "lifecycle.metrics.read"
 	ActionLifecycleArchiveList               = "lifecycle.archive.list"
 	ActionLifecycleSubjectRequestsCreate     = "lifecycle.subject_requests.create"
+	ActionLifecycleSubjectRequestsList       = "lifecycle.subject_requests.list"
+	ActionLifecycleSubjectRequestsRead       = "lifecycle.subject_requests.read"
 	ActionLifecycleSubjectRequestsVerify     = "lifecycle.subject_requests.verify"
 	ActionLifecycleSubjectRequestsPreview    = "lifecycle.subject_requests.preview"
 	ActionLifecycleSubjectRequestsApprove    = "lifecycle.subject_requests.approve"
