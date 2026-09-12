@@ -156,6 +156,13 @@ type FileScanStore interface {
 	RecordFileScan(context.Context, FileScanEvidence) error
 }
 
+// PendingFileScanStore is the optional durable scanner queue exposed to the
+// trusted host. Pending uploads remain discoverable after a process restart;
+// callers must persist a terminal result through FileScanStore.
+type PendingFileScanStore interface {
+	PendingFileScans(context.Context, lifecycleaccess.SystemScope, int) ([]FileScanEvidence, error)
+}
+
 // UploadFileArtifactStore is the complete host-facing artifact capability used
 // by upload access and scan-receipt verification.
 type UploadFileArtifactStore interface {
