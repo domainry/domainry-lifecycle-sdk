@@ -3,6 +3,7 @@ package contract
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"time"
 
 	lifecycleaccess "github.com/domainry/domainry-lifecycle-sdk/access"
@@ -93,6 +94,8 @@ type UploadArtifact struct {
 	Size        int64     `json:"size"`
 	CreatedAt   time.Time `json:"created_at"`
 }
+
+var ErrUploadArtifactIdentityConflict = errors.New("lifecycle upload artifact identity conflict")
 
 const (
 	FileScanPending     = "pending"
