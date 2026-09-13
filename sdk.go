@@ -61,6 +61,7 @@ func (r ApplicationRef) Validate() error {
 type Capabilities struct {
 	Governance      bool
 	SubjectRequests bool
+	AccountErasure  bool
 	RetentionWorker bool
 	UploadArtifacts bool
 	ArchiveEvidence bool
@@ -156,4 +157,10 @@ type Binding interface {
 	SubjectArtifacts(string) (contract.SubjectArtifactStore, error)
 	ArchiveStore() contract.ArchiveStore
 	Close(context.Context) error
+}
+
+// AccountErasureBinding is a source-owned, privileged Action delivery port.
+// It is not exposed through user governance HTTP routes.
+type AccountErasureBinding interface {
+	AccountErasures() contract.AccountErasures
 }

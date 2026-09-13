@@ -47,6 +47,17 @@ type SubjectExecutionHandler interface {
 	EraseSubjectForRequest(context.Context, string, string, string, []lifecyclemodel.LegalHold) (json.RawMessage, error)
 }
 
+// PreparedSubjectErasureHandler is used by owners whose erasure removes the
+// references needed to retry external cleanup. Lifecycle persists the plan
+// before any owner erases data and supplies that same plan on every retry.
+// Plans contain target identities and cleanup instructions, never exported
+// personal data or credentials. SQL-only owners may journal atomically inside
+// EraseSubjectForRequest instead.
+type PreparedSubjectErasureHandler interface {
+	PrepareSubjectErasure(context.Context, string, string, string) (json.RawMessage, error)
+	ErasePreparedSubject(context.Context, string, string, string, json.RawMessage, []lifecyclemodel.LegalHold) (json.RawMessage, error)
+}
+
 type ExternalErasureHandler interface {
 	// RequestExternalErasure must be idempotent by SubjectRequest.ID.
 	RequestExternalErasure(context.Context, lifecyclemodel.SubjectRequest) ([]lifecyclemodel.ExternalErasure, error)
@@ -80,6 +91,19 @@ type SubjectFileEvidence struct {
 type SubjectFileStore interface {
 	ExportSubjectFile(context.Context, SubjectFileReference) (SubjectFileEvidence, error)
 	DeleteSubjectFile(context.Context, SubjectFileReference) (SubjectFileEvidence, error)
+}
+
+// SubjectFileVersionDeleter deletes exactly the file version previously read
+// while preparing an erasure. An absent file is a successful retry; a changed
+// file must be rejected. Expected evidence never contains file content.
+type SubjectFileVersionDeleter interface {
+	DeleteSubjectFileVersion(context.Context, SubjectFileReference, SubjectFileEvidence) (SubjectFileEvidence, error)
+}
+
+// SubjectExportDeleter removes a previously issued subject export in one
+// workspace. An absent file is a successful retry after durable preparation.
+type SubjectExportDeleter interface {
+	DeleteSubjectExport(context.Context, string, string) error
 }
 
 type UploadArtifact struct {
