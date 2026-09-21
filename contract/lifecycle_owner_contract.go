@@ -3,11 +3,30 @@ package contract
 import (
 	"context"
 	"encoding/json"
+	"errors"
+	"io"
 	"time"
 
 	lifecycleaccess "github.com/domainry/domainry-lifecycle-sdk/access"
 	lifecyclemodel "github.com/domainry/domainry-lifecycle-sdk/model"
 )
+
+var ErrArtifactContentNotFound = errors.New("lifecycle artifact content not found")
+
+// ArtifactContentStore is the deployment-owned byte boundary used by
+// Lifecycle for retention cleanup and subject export/erasure. Business
+// ownership stays in Lifecycle; storage credentials and topology stay in the
+// host deployment.
+type ArtifactContentStore interface {
+	Open(context.Context, string, string) (io.ReadCloser, error)
+	Stat(context.Context, string, string) (ArtifactContentInfo, error)
+	Delete(context.Context, string, string) error
+}
+
+type ArtifactContentInfo struct {
+	SHA256 string
+	Size   int64
+}
 
 type CleanupPreview struct {
 	Rows           int64     `json:"rows"`

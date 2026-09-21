@@ -82,6 +82,7 @@ func (d Descriptor) Validate() error {
 
 type UploadArtifactOptions struct {
 	Root              string
+	Content           contract.ArtifactContentStore
 	Fields            contract.UploadFieldCatalog
 	References        contract.UploadArtifactReferenceResolver
 	ExpiredReferences contract.ExpiredUploadReferenceCleaner
@@ -154,7 +155,7 @@ type Binding interface {
 	System() System
 	LocalWorkers() (LocalWorkers, bool)
 	UploadArtifacts(UploadArtifactOptions) (contract.UploadFileArtifactStore, error)
-	SubjectArtifacts(string) (contract.SubjectArtifactStore, error)
+	SubjectArtifacts(string, ...contract.ArtifactContentStore) (contract.SubjectArtifactStore, error)
 	ArchiveStore() contract.ArchiveStore
 	Close(context.Context) error
 }
