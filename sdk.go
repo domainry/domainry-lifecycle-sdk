@@ -8,7 +8,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/domainry/domainry-foundation/modulecapability"
 	"github.com/domainry/domainry-lifecycle-sdk/access"
 	"github.com/domainry/domainry-lifecycle-sdk/contract"
 	model "github.com/domainry/domainry-lifecycle-sdk/model"
@@ -109,6 +108,7 @@ type Governance interface {
 	EndLegalHold(context.Context, string, string, string, string, time.Time, access.Principal) (model.LegalHold, error)
 	PreviewCleanup(context.Context, string, string, access.Principal, time.Time) (contract.CleanupPreview, error)
 	CreateCleanupJob(context.Context, model.CleanupJob, access.Principal) (model.CleanupJob, error)
+	InspectCleanupJob(context.Context, string, string, access.Principal) (model.CleanupJob, error)
 	ProcessCleanupJob(context.Context, string, string, string, time.Duration, int, time.Time, access.Principal) (model.CleanupJob, error)
 	Metrics(context.Context, access.Principal, time.Time) (model.Metrics, error)
 	ListArchiveEntries(context.Context, string, int, access.Principal) ([]model.ArchiveEntry, error)
@@ -148,7 +148,6 @@ type LocalWorkers interface {
 }
 
 type Binding interface {
-	modulecapability.Binding
 	Descriptor() Descriptor
 	BindOwners(context.Context, OwnerExtensions) error
 	Governance() Governance

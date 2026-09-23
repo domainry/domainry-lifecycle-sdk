@@ -3,30 +3,22 @@ package contract
 import (
 	"context"
 	"encoding/json"
-	"errors"
-	"io"
 	"time"
 
+	sharedartifact "github.com/domainry/domainry-foundation/artifact"
 	lifecycleaccess "github.com/domainry/domainry-lifecycle-sdk/access"
 	lifecyclemodel "github.com/domainry/domainry-lifecycle-sdk/model"
 )
 
-var ErrArtifactContentNotFound = errors.New("lifecycle artifact content not found")
+var ErrArtifactContentNotFound = sharedartifact.ErrContentNotFound
 
 // ArtifactContentStore is the deployment-owned byte boundary used by
 // Lifecycle for retention cleanup and subject export/erasure. Business
 // ownership stays in Lifecycle; storage credentials and topology stay in the
 // host deployment.
-type ArtifactContentStore interface {
-	Open(context.Context, string, string) (io.ReadCloser, error)
-	Stat(context.Context, string, string) (ArtifactContentInfo, error)
-	Delete(context.Context, string, string) error
-}
-
-type ArtifactContentInfo struct {
-	SHA256 string
-	Size   int64
-}
+type ArtifactContentStore = sharedartifact.ContentStore
+type ArtifactContentInfo = sharedartifact.ContentInfo
+type ArtifactContentWriter = sharedartifact.ContentWriter
 
 type CleanupPreview struct {
 	Rows           int64     `json:"rows"`
@@ -82,9 +74,24 @@ type ExternalErasureHandler interface {
 	RequestExternalErasure(context.Context, lifecyclemodel.SubjectRequest) ([]lifecyclemodel.ExternalErasure, error)
 }
 
+type SubjectExportWrite struct {
+	WorkspaceID      string
+	RequestID        string
+	ResolvedIdentity string
+	CreatedBy        string
+	OwnerOrgID       string
+	Payload          json.RawMessage
+	ExpiresAt        time.Time
+}
+
+type SubjectExportReference struct {
+	ArtifactID string
+	ExpiresAt  time.Time
+}
+
 type SubjectArtifactStore interface {
 	SubjectFileStore
-	PutSubjectExport(context.Context, string, string, json.RawMessage, time.Time) (string, error)
+	PutSubjectExport(context.Context, SubjectExportWrite) (SubjectExportReference, error)
 	ReadSubjectExport(context.Context, string, string, time.Time) (json.RawMessage, error)
 	DeleteExpiredSubjectExports(context.Context, time.Time) (int, error)
 	DeleteExpiredUploadStaging(context.Context, time.Time) (int, error)

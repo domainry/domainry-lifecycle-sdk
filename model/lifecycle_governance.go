@@ -39,6 +39,7 @@ const (
 type CleanupJob struct {
 	ID             string        `json:"id"`
 	WorkspaceID    string        `json:"workspace_id"`
+	OperationID    string        `json:"operation_id,omitempty"`
 	PolicyKey      string        `json:"policy_key"`
 	PolicyVersion  string        `json:"policy_version"`
 	Operation      Operation     `json:"operation"`
@@ -115,6 +116,19 @@ type SubjectRequest struct {
 	ExecutionLeaseEnd time.Time            `json:"execution_lease_end,omitempty"`
 	CreatedAt         time.Time            `json:"created_at"`
 	UpdatedAt         time.Time            `json:"updated_at"`
+}
+
+// SubjectExecutionStep is the shared, idempotent completion record for one
+// owner operation within a subject request. The physical identity is
+// (workspace_id, request_id, owner, operation); Payload is the owner's typed
+// replay result.
+type SubjectExecutionStep struct {
+	WorkspaceID string          `json:"workspace_id"`
+	RequestID   string          `json:"request_id"`
+	Owner       string          `json:"owner"`
+	Operation   string          `json:"operation"`
+	Payload     json.RawMessage `json:"payload"`
+	CompletedAt time.Time       `json:"completed_at"`
 }
 
 type ExternalErasure struct {
