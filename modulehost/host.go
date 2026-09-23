@@ -20,6 +20,7 @@ type Database = sqlhost.Database
 type Dialect interface {
 	query.Renderer
 	Name() ormdialect.Name
+	Insert(string, []string) string
 }
 
 type SchemaMigration = ormmigration.Migration
