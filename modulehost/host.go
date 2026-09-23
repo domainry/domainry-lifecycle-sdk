@@ -4,7 +4,6 @@ import (
 	"context"
 
 	auditcontract "github.com/domainry/domainry-audit-sdk/contract"
-	sharedartifact "github.com/domainry/domainry-foundation/artifact"
 	lifecyclecontract "github.com/domainry/domainry-lifecycle-sdk/contract"
 	ormdialect "github.com/domainry/domainry-orm/dialect"
 	ormmigration "github.com/domainry/domainry-orm/migration"
@@ -45,10 +44,9 @@ type AuditStoreHost interface {
 	AuditTransactionalAppender() auditcontract.TransactionalAppender
 }
 
-// ArtifactStoreHost supplies the shared governed metadata store and the
-// deployment-owned byte boundary used by Lifecycle archives and uploads.
+// ArtifactStoreHost supplies only the deployment-owned byte boundary used by
+// Lifecycle archives and uploads. Lifecycle opens Foundation metadata itself.
 type ArtifactStoreHost interface {
-	ArtifactStore() sharedartifact.ManagedStore
 	ArtifactContentStore() lifecyclecontract.ArtifactContentStore
 	ArtifactContentWriter() lifecyclecontract.ArtifactContentWriter
 }
