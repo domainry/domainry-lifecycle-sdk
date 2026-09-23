@@ -63,7 +63,7 @@ type Capabilities struct {
 	AccountErasure  bool
 	RetentionWorker bool
 	UploadArtifacts bool
-	ArchiveEvidence bool
+	ArchiveInspection bool
 }
 
 type Descriptor struct {
