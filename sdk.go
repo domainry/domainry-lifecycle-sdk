@@ -8,6 +8,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/domainry/domainry-foundation/apperror"
 	"github.com/domainry/domainry-lifecycle-sdk/access"
 	"github.com/domainry/domainry-lifecycle-sdk/contract"
 	model "github.com/domainry/domainry-lifecycle-sdk/model"
@@ -21,12 +22,24 @@ const (
 	ProtocolVersionV1                   = "domainry-lifecycle-protocol-v1"
 )
 
+type ErrorClass = apperror.ErrorKind
+
+const (
+	ErrorClassBadRequest  = apperror.KindBadRequest
+	ErrorClassForbidden   = apperror.KindForbidden
+	ErrorClassNotFound    = apperror.KindNotFound
+	ErrorClassConflict    = apperror.KindConflict
+	ErrorClassRateLimited = apperror.KindRateLimited
+	ErrorClassUnavailable = apperror.KindUnavailable
+	ErrorClassInternal    = apperror.KindInternal
+)
+
 type Error struct {
-	StatusCode int    `json:"-"`
-	Code       string `json:"code"`
-	Message    string `json:"message,omitempty"`
-	Retryable  bool   `json:"retryable,omitempty"`
-	Cause      error  `json:"-"`
+	Class     ErrorClass `json:"-"`
+	Code      string     `json:"code"`
+	Message   string     `json:"message,omitempty"`
+	Retryable bool       `json:"retryable,omitempty"`
+	Cause     error      `json:"-"`
 }
 
 func (e *Error) Error() string {
@@ -50,25 +63,10 @@ func (e *Error) ApplicationErrorKind() string {
 	if e == nil {
 		return ""
 	}
-	switch e.StatusCode {
-	case 400, 413, 422:
-		return "bad_request"
-	case 401, 403:
-		return "forbidden"
-	case 404:
-		return "not_found"
-	case 409, 412:
-		return "conflict"
-	case 429:
-		return "rate_limited"
-	case 502, 503, 504:
-		return "unavailable"
-	default:
-		if e.Retryable {
-			return "unavailable"
-		}
-		return "internal"
+	if e.Class == "" && e.Retryable {
+		return string(apperror.KindUnavailable)
 	}
+	return string(apperror.NormalizeKind(string(e.Class)))
 }
 
 func (e *Error) ErrorCode() string {
