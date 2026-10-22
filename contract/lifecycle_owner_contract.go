@@ -70,7 +70,7 @@ type PreparedSubjectErasureHandler interface {
 }
 
 type ExternalErasureHandler interface {
-	// RequestExternalErasure must be idempotent by SubjectRequest.ID.
+	// RequestExternalErasure must be idempotent by SubjectRequest.RequestID.
 	RequestExternalErasure(context.Context, lifecyclemodel.SubjectRequest) ([]lifecyclemodel.ExternalErasure, error)
 }
 
@@ -133,7 +133,8 @@ type SubjectExportDeleter interface {
 }
 
 type UploadArtifact struct {
-	ID          string    `json:"id"`
+	ID          int64     `json:"id"`
+	ArtifactID  string    `json:"artifact_id"`
 	WorkspaceID string    `json:"workspace_id"`
 	ObjectKey   string    `json:"object_key"`
 	FieldKey    string    `json:"field_key"`
@@ -155,7 +156,7 @@ const (
 // is a Runtime signature over workspace, file identity, content identity and
 // the scanner outcome; project code cannot mint or mutate it.
 type FileScanEvidence struct {
-	FileID      string    `json:"file_id"`
+	ArtifactID  string    `json:"artifact_id"`
 	WorkspaceID string    `json:"workspace_id,omitempty"`
 	Filename    string    `json:"filename,omitempty"`
 	ContentType string    `json:"content_type,omitempty"`

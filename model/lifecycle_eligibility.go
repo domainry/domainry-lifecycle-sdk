@@ -18,7 +18,8 @@ type ResourceTarget struct {
 }
 
 type LegalHold struct {
-	ID            string     `json:"id"`
+	ID            int64      `json:"id"`
+	HoldID        string     `json:"hold_id"`
 	WorkspaceID   string     `json:"workspace_id"`
 	Owner         string     `json:"owner,omitempty"`
 	ResourceType  string     `json:"resource_type,omitempty"`

@@ -37,7 +37,8 @@ const (
 )
 
 type CleanupJob struct {
-	ID             string        `json:"id"`
+	ID             int64         `json:"id"`
+	JobID          string        `json:"job_id"`
 	WorkspaceID    string        `json:"workspace_id"`
 	OperationID    string        `json:"operation_id,omitempty"`
 	PolicyKey      string        `json:"policy_key"`
@@ -95,7 +96,9 @@ const (
 )
 
 type SubjectRequest struct {
-	ID                string               `json:"id"`
+	ID                int64                `json:"id"`
+	RequestID         string               `json:"request_id"`
+	IdempotencyKey    string               `json:"-"`
 	WorkspaceID       string               `json:"workspace_id"`
 	Kind              SubjectRequestKind   `json:"kind"`
 	Status            SubjectRequestStatus `json:"status"`
@@ -132,14 +135,15 @@ type SubjectExecutionStep struct {
 }
 
 type ExternalErasure struct {
-	ID           string    `json:"id"`
-	RequestID    string    `json:"request_id"`
-	WorkspaceID  string    `json:"workspace_id"`
-	ConnectorKey string    `json:"connector_key"`
-	ProviderRef  string    `json:"provider_ref"`
-	Status       string    `json:"status"`
-	ReconciledAt time.Time `json:"reconciled_at,omitempty"`
-	Evidence     string    `json:"evidence,omitempty"`
+	ID              int64     `json:"id"`
+	RequestID       string    `json:"request_id"`
+	ParentRequestID string    `json:"parent_request_id"`
+	WorkspaceID     string    `json:"workspace_id"`
+	ConnectorKey    string    `json:"connector_key"`
+	ProviderRef     string    `json:"provider_ref"`
+	Status          string    `json:"status"`
+	ReconciledAt    time.Time `json:"reconciled_at,omitempty"`
+	Evidence        string    `json:"evidence,omitempty"`
 }
 
 // DeletionRegistration survives online erasure so restored backups can reapply
@@ -154,7 +158,8 @@ type DeletionRegistration struct {
 }
 
 type ArchiveEntry struct {
-	ID            string          `json:"id"`
+	ID            int64           `json:"id"`
+	ArtifactID    string          `json:"artifact_id"`
 	WorkspaceID   string          `json:"workspace_id"`
 	Owner         string          `json:"owner"`
 	SourceTable   string          `json:"source_table"`

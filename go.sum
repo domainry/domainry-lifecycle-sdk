@@ -1,6 +1,6 @@
-github.com/domainry/domainry-audit-sdk v0.1.15 h1:H1Fnt23SEaU4WRV//T0tVJIEa5FoSZjHjuUmo7wrVhA=
-github.com/domainry/domainry-audit-sdk v0.1.15/go.mod h1:fA1AKmaZwRtD80D1gC4qZTCs56aqBLF4JyIdWSe/Zl8=
-github.com/domainry/domainry-foundation v0.2.10 h1:/4MsUDjhGMC11KAk6D9XGpvAlzblNO80B+ELFRdWC70=
-github.com/domainry/domainry-foundation v0.2.10/go.mod h1:nCw272N/NTkHfJNWvAGL8vZybUtOpgw3ZyCIshRSqF4=
-github.com/domainry/domainry-orm v0.1.33 h1:gpCXkwDvJhJkiLMkA9awJ44KaFVtpBC6fh9v/EywT24=
-github.com/domainry/domainry-orm v0.1.33/go.mod h1:gB/ooN737tsBYHbeHqCpngEprvdvZKp0Zygtzv+IPJY=
+github.com/domainry/domainry-audit-sdk v0.1.16 h1:MjG9FEEgljBQwgg17SuWtLbM5SW5nLVo6n7Q3uufSYk=
+github.com/domainry/domainry-audit-sdk v0.1.16/go.mod h1:/u2W7lCEVTLHct1GtWZuyankOkBLJi5EULJaTNpFNsk=
+github.com/domainry/domainry-foundation v0.2.12 h1:vXAl3w6oY43e/WjjeBbOn9W7cKAq9FMPNMvWZVCYNx8=
+github.com/domainry/domainry-foundation v0.2.12/go.mod h1:KOhQJJ6dxfd7FLmKlFlbyFK3MTIPWVkiBx/tQqw/wqo=
+github.com/domainry/domainry-orm v0.1.34 h1:uCF3QlJBJgG7n6J1Q2xS8XD9+645rW88iv9a0WlQXsI=
+github.com/domainry/domainry-orm v0.1.34/go.mod h1:gB/ooN737tsBYHbeHqCpngEprvdvZKp0Zygtzv+IPJY=
